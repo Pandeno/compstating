@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Statistics BBCode Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-custom-navy {
+            background-color: #172D45; /* Dark navy blue */
+        }
+        .generator-container {
+            border: 4px solid #D4AF37; /* Custom gold outline */
+            box-shadow: 0 0 0 2px #000000; /* Black trim inside the gold border */
+        }
+    </style>
+</head>
+<body class="bg-custom-navy p-6 text-black">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md generator-container">
+        <h1 class="text-2xl font-bold mb-4 text-black">Crime Statistics BBCode Generator</h1>
+        <p class="mb-4 text-black">Select the month and year, fill out the values for each crime statistic, then click "Generate Table" to get the updated BBCode table. Totals will be calculated automatically. Use "Reset Table" to clear all inputs.</p>
+
+        <!-- Form for input -->
+        <div id="crimeForm" class="space-y-6">
+            <!-- Month and Year Selection -->
+            <div class="flex space-x-4">
+                <div>
+                    <label for="monthSelect" class="block text-lg font-medium text-black mb-1">Select Month:</label>
+                    <select id="monthSelect" class="border p-2 rounded w-full max-w-xs">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May" selected>May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="yearInput" class="block text-lg font-medium text-black mb-1">Select Year:</label>
+                    <input type="number" id="yearInput" value="2025" min="1900" max="9999" class="border p-2 rounded w-full max-w-xs">
+                </div>
+            </div>
+
+            <!-- Persons Crimes Section -->
+            <div>
+                <h2 class="text-xl font-semibold text-red-600">PERSONS CRIMES</h2>
+                <div class="grid grid-cols-9 gap-2 mb-2 font-semibold text-black">
+                    <div>Crime Type</div>
+                    <div>NFA</div>
+                    <div>FWD</div>
+                    <div>CHK</div>
+                    <div>CAT 1</div>
+                    <div>CAT 2</div>
+                    <div>OPEN</div>
+                    <div>SOLVED</div>
+                    <div>UNSOLVED</div>
+                </div>
+                <div id="personsCrimes" class="space-y-2">
+                    <!-- Homicide -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">HOMICIDE</div>
+                        <input type="number" min="0" value="0" id="persons_homicide_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_homicide_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Robbery -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">ROBBERY</div>
+                        <input type="number" min="0" value="0" id="persons_robbery_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_robbery_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Aggravated Battery -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">AGGRAVATED BATTERY</div>
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_aggravatedbattery_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Battery -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">BATTERY</div>
+                        <input type="number" min="0" value="0" id="persons_battery_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_battery_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Assault -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">ASSAULT</div>
+                        <input type="number" min="0" value="0" id="persons_assault_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="persons_assault_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Crimes Section -->
+            <div>
+                <h2 class="text-xl font-semibold text-red-600">PROPERTY CRIMES</h2>
+                <div class="grid grid-cols-9 gap-2 mb-2 font-semibold text-black">
+                    <div>Crime Type</div>
+                    <div>NFA</div>
+                    <div>FWD</div>
+                    <div>CHK</div>
+                    <div>CAT 1</div>
+                    <div>CAT 2</div>
+                    <div>OPEN</div>
+                    <div>SOLVED</div>
+                    <div>UNSOLVED</div>
+                </div>
+                <div id="propertyCrimes" class="space-y-2">
+                    <!-- Burglary / Home Invasion -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">BURGLARY / HOME INVASION</div>
+                        <input type="number" min="0" value="0" id="property_burglary_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_burglary_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Motor Vehicle Theft -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">MOTOR VEHICLE THEFT</div>
+                        <input type="number" min="0" value="0" id="property_vehicletheft_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_vehicletheft_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Arson -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">ARSON</div>
+                        <input type="number" min="0" value="0" id="property_arson_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_arson_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                    <!-- Theft -->
+                    <div class="grid grid-cols-9 gap-2">
+                        <div class="text-black">THEFT</div>
+                        <input type="number" min="0" value="0" id="property_theft_nfa" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_fwd" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_chk" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_cat1" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_cat2" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_open" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_solved" class="border p-1 rounded w-full">
+                        <input type="number" min="0" value="0" id="property_theft_unsolved" class="border p-1 rounded w-full">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex space-x-4">
+                <button onclick="generateTables()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Generate Table</button>
+                <button onclick="resetTable()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reset Table</button>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div id="output" class="mt-6 hidden">
+            <!-- BBCode Output -->
+            <h2 class="text-xl font-semibold mb-2 text-black">Generated BBCode</h2>
+            <textarea id="bbcodeOutput" class="w-full h-64 border p-2 rounded font-mono text-sm text-black" readonly></textarea>
+            <button onclick="copyBBCode()" class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Copy BBCode to Clipboard</button>
+        </div>
+    </div>
+
+    <script>
+        function generateTables() {
+            const month = document.getElementById('monthSelect').value; // Get the selected month
+            const year = document.getElementById('yearInput').value; // Get the selected year
+            const monthYear = `${month} ${year}`; // e.g., "June 2024"
+
+            const headers = ["Crime Type", "NFA", "FWD", "CHK", "CAT 1", "CAT 2", "OPEN", "SOLVED", "UNSOLVED"];
+            const personsCrimes = [
+                { name: "HOMICIDE", key: "homicide" },
+                { name: "ROBBERY", key: "robbery" },
+                { name: "AGGRAVATED BATTERY", key: "aggravatedbattery" },
+                { name: "BATTERY", key: "battery" },
+                { name: "ASSAULT", key: "assault" }
+            ];
+            const propertyCrimes = [
+                { name: "BURGLARY / HOME INVASION", key: "burglary" },
+                { name: "MOTOR VEHICLE THEFT", key: "vehicletheft" },
+                { name: "ARSON", key: "arson" },
+                { name: "THEFT", key: "theft" }
+            ];
+
+            // Calculate totals for Persons Crimes
+            const personsTotals = Array(headers.length - 1).fill(0); // Array to store totals for NFA, FWD, CHK, CAT 1, CAT 2, OPEN, SOLVED, UNSOLVED
+            personsCrimes.forEach(crime => {
+                headers.slice(1).forEach((header, index) => {
+                    const headerKey = header.toLowerCase().replace(/ /g, '');
+                    const element = document.getElementById(`persons_${crime.key}_${headerKey}`);
+                    const value = element ? parseInt(element.value) || 0 : 0;
+                    personsTotals[index] += value;
+                });
+            });
+
+            // Calculate totals for Property Crimes
+            const propertyTotals = Array(headers.length - 1).fill(0); // Array to store totals for NFA, FWD, CHK, CAT 1, CAT 2, OPEN, SOLVED, UNSOLVED
+            propertyCrimes.forEach(crime => {
+                headers.slice(1).forEach((header, index) => {
+                    const headerKey = header.toLowerCase().replace(/ /g, '');
+                    const element = document.getElementById(`property_${crime.key}_${headerKey}`);
+                    const value = element ? parseInt(element.value) || 0 : 0;
+                    propertyTotals[index] += value;
+                });
+            });
+
+            // Generate BBCode
+            let bbcode = `[b]Crime Statistics Table for the month of ${monthYear}[/b]\n\n`;
+
+            // Persons Crimes Section (BBCode)
+            bbcode += `[b][color=red]PERSONS CRIMES[/color][/b]\n[table]\n`;
+            bbcode += `[tr]${headers.map(h => `[td][b]${h}[/b][/td]`).join('')}[/tr]\n`;
+
+            personsCrimes.forEach(crime => {
+                bbcode += `[tr][td]${crime.name}[/td]`;
+                headers.slice(1).forEach(header => {
+                    const headerKey = header.toLowerCase().replace(/ /g, '');
+                    const element = document.getElementById(`persons_${crime.key}_${headerKey}`);
+                    const value = element ? element.value : "0";
+                    bbcode += `[td]${value}[/td]`;
+                });
+                bbcode += `[/tr]\n`;
+            });
+
+            // Persons Total (BBCode)
+            bbcode += `[tr][td][b]TOTAL[/b][/td]`;
+            personsTotals.forEach(total => {
+                bbcode += `[td]${total}[/td]`;
+            });
+            bbcode += `[/tr]\n`;
+            bbcode += `[/table]\n\n`;
+
+            // Property Crimes Section (BBCode)
+            bbcode += `[b][color=red]PROPERTY CRIMES[/color][/b]\n[table]\n`;
+            bbcode += `[tr]${headers.map(h => `[td][b]${h}[/b][/td]`).join('')}[/tr]\n`;
+
+            propertyCrimes.forEach(crime => {
+                bbcode += `[tr][td]${crime.name}[/td]`;
+                headers.slice(1).forEach(header => {
+                    const headerKey = header.toLowerCase().replace(/ /g, '');
+                    const element = document.getElementById(`property_${crime.key}_${headerKey}`);
+                    const value = element ? element.value : "0";
+                    bbcode += `[td]${value}[/td]`;
+                });
+                bbcode += `[/tr]\n`;
+            });
+
+            // Property Total (BBCode)
+            bbcode += `[tr][td][b]TOTAL[/b][/td]`;
+            propertyTotals.forEach(total => {
+                bbcode += `[td]${total}[/td]`;
+            });
+            bbcode += `[/tr]\n`;
+            bbcode += `[/table]\n`;
+
+            // Display the Output
+            const outputDiv = document.getElementById('output');
+            const bbcodeOutput = document.getElementById('bbcodeOutput');
+            bbcodeOutput.value = bbcode;
+            outputDiv.classList.remove('hidden');
+        }
+
+        function resetTable() {
+            // Reset month and year to default values
+            document.getElementById('monthSelect').value = "May";
+            document.getElementById('yearInput').value = "2025";
+
+            // Reset all number inputs to 0
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.value = "0";
+            });
+
+            // Hide the output section
+            const outputDiv = document.getElementById('output');
+            outputDiv.classList.add('hidden');
+        }
+
+        function copyBBCode() {
+            const bbcodeOutput = document.getElementById('bbcodeOutput');
+            bbcodeOutput.select();
+            document.execCommand('copy');
+            alert('BBCode copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
